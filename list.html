@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="list.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>ToDoList</title>
+</head>
+<body>
+    <div claa="todolist">
+        <div class="nav">
+            <div class="navl">
+                <a href="#" class="nav-ico">ToDoList</a>
+            </div>
+            <div class="navr">                    
+                <a href="#">登陆</a>
+            </div>
+        </div>
+        <div class="content" id="content">
+            <div class="content-head" id="contenthead">
+                <form v-on:submit.prevent="addTodo">
+                    <label for="todolist">请输入ToDo：</label>
+                    <input 
+                    type="text" 
+                    class="inputtext" 
+                    placeholder="去买柠檬🍋！"
+                    v-model="newTodoText"
+                    id="todolist"
+                    >
+                    <button>添加</button>
+                </form>
+            </div>
+            <div class="content-main">
+                <div class="content-main-left">
+                    <a href="#" class="total" v-on:click="setfilter('show_all')">全部 ({{allcount}})</a>
+                    <a href="#" class="done" v-on:click="setfilter('show_finished')">已完成 ({{finishedcount}})</a>
+                    <a href="#" class="undone" v-on:click="setfilter('show_unfinished')">未完成 ({{unfinishedcount}})</a>
+                </div>
+                <div class="content-main-right">
+                    <ul>
+                        <todo-item
+                            is="todo-item"
+                            v-for="(todo, index) in tdlist"
+                            :todo="todo"
+                            :key="todo.id"
+                            :isfinished="todo.isfinished"
+                            v-on:remove="todos.splice(index, 1)"
+                        ></todo-item>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="list.js"></script>
+</body>
+</html>
